@@ -452,7 +452,7 @@ In the end, John would like to have 2 arrays:
 
 GOOD LUCK 😀
 */
-
+/* 
 function calculate_tip(bill_amount) {
   if (bill_amount < 0) return null;
   switch (true) {
@@ -476,3 +476,35 @@ for (const bill of bills) {
 
 console.log(bills);
 console.log(total);
+ */
+
+/*****************************
+ * Objects and Properties
+ */
+
+// Object literals
+let john = {
+  firstName: "John",
+  lastName: "Smith",
+  birthYear: 1990,
+  family: ["Jane", "Mark", "Bom", "Emily"],
+  job: "teacher",
+  isMarried: false,
+};
+
+console.log(john);
+// to access a property use the '.' notation eg, john.firstName
+// or use the array notation - eg, john['lastName']
+console.log(john.firstName);
+console.log(john["lastName"]);
+
+john.job = "designer";
+john["isMarried"] = true;
+console.log(john);
+
+// object creation
+let jane = new Object()
+jane.name = 'Jane'
+jane.birthYear = 1969
+jane.lastName = 'Smith'
+console.log(jane);

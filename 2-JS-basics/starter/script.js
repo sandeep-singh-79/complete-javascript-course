@@ -343,4 +343,28 @@ else if (
   mike_team_avg === mary_team_avg
 )
   console.log("It's a draw!!!"); */
-  
+
+/*****************************
+ * Functions
+ */
+
+/* function calculate_age(birth_year) {
+  // get current year and then deduct birth year from it;
+  return new Date().getFullYear() - birth_year;
+}
+
+let age_john = calculate_age(1990);
+let age_mike = calculate_age(1948);
+let age_jane = calculate_age(1969);
+console.log(age_john, age_mike, age_jane);
+
+function years_till_retirement(birth_year, retirement_age, firstName) {
+  let retirement = retirement_age - calculate_age(birth_year);
+  if (retirement > 0)
+    console.log(`${firstName} retires in ${retirement} years.`);
+  else console.log(`${firstName} is already retired!`);
+}
+
+years_till_retirement(1990, 65, "John");
+years_till_retirement(1948, 65, "Mike");
+years_till_retirement(1969, 65, "Jane"); */

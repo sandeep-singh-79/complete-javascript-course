@@ -660,6 +660,7 @@ Mark likes to tip 20% of the bill when the bill is less than $100, 10% when the 
 GOOD LUCK 😀
 */
 
+/* 
 let john = {
   fullName: "John Smith",
   bills: new Array(124, 48, 268),
@@ -731,3 +732,4 @@ else
   console.log(
     `Both John's and Marks's families paid the same tip amount at ${mark.average} on average`
   );
+ */

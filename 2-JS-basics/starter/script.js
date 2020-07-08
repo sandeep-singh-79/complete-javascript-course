@@ -475,5 +475,4 @@ for (const bill of bills) {
 }
 
 console.log(bills);
-console.log(tips);
 console.log(total);

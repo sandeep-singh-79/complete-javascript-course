@@ -571,9 +571,9 @@ let mark = {
   },
 };
 
-john.bmi_calculator();
-mark.bmi_calculator();
-if (john.bmi > mark.bmi)
+// as the method returns the calculated BMI we can use it in the comparision expression.
+// subsequent comparision can directly use the calculated BMIs
+if (john.bmi_calculator() > mark.bmi_calculator())
   console.log(`${john.fullName} has the higher bmi at ${john.bmi}`);
 else if (john.bmi < mark.bmi)
   console.log(`${mark.fullName} has the higher bmi at ${mark.bmi}`);

@@ -220,7 +220,7 @@ else console.log(`${firstName} is a man`);
  * The Ternary Operator and Switch statement
  */
 
-let firstName = "John";
+/* let firstName = "John";
 let age = 16;
 
 // Ternary Operator
@@ -228,12 +228,12 @@ age >= 18
   ? console.log(`${firstName} drinks beer.`)
   : console.log(`${firstName} drinks juice.`);
 
-var drink = age >= age ? "beer" : "juice";
+var drink = age >= age ? "beer" : "juice"; */
 
 /* if (age >= 18) var drink = "beer";
 else var drink = "juice"; */
 
-// Switch statement
+/* // Switch statement
 let job = "teacher";
 
 switch (job) {
@@ -264,4 +264,24 @@ switch (true) {
     break;
   default:
     console.log(`${firstName} is a man`);
-}
+} */
+
+/*****************************
+ * Truthy and Falsy values and equality operators
+ */
+
+// Falsy values: undefined, null, 0, '', NaN
+// called so as they evaluate to false when evaluated in if construct
+// Truthy values: NOT falsy values
+
+let height;
+height = 23;
+
+if (height || height === 0) console.log(`variable is defined`);
+else console.log("variable is not defined");
+
+
+if (height === '23') console.log('The == operator does type coercion!')
+// the == operator uses type coercion during comparision
+// the === operator/strict equality operator compares the objects as is
+// without any type coercion.

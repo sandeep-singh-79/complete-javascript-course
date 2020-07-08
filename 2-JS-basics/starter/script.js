@@ -139,9 +139,9 @@ console.log(x); */
 *
 * GOOD LUCK 😀
 */
-// Solution
 
-/* let massJohn, massMark, heightJohn, heightMark, bmiJohn, bmiMark;
+/*
+let massJohn, massMark, heightJohn, heightMark, bmiJohn, bmiMark;
 massJohn = new Number(prompt('What is John\'s weight? '));
 heightJohn = new Number(prompt('What is John\'s height? '));
 console.log('weight of john: ' + massJohn);
@@ -158,4 +158,46 @@ console.log("bmi of john: " + bmiJohn);
 console.log("bmi of mark: " + bmiMark);
 
 let isBmiHigher = bmiMark > bmiJohn;
-console.log('Is Mark\'s BMI higher than John\'s? ' + isBmiHigher); */
+console.log('Is Mark\'s BMI higher than John\'s? ' + isBmiHigher);
+*/
+
+/*****************************
+ * If / else statements
+ */
+
+let firstName, civilStatus;
+firstName = "John";
+civilStatus = "single";
+
+if ("married" === civilStatus) {
+  console.log(firstName + ` is married!`);
+} else {
+  console.log(firstName + ` will hopefully marry soon :)`);
+}
+
+let isMarried = true;
+if (isMarried) {
+  console.log(firstName + ` is married!`);
+} else {
+  console.log(firstName + ` will hopefully marry soon :)`);
+}
+
+let massJohn, massMark, heightJohn, heightMark, bmiJohn, bmiMark;
+massJohn = new Number(prompt("What is John's weight? "));
+heightJohn = new Number(prompt("What is John's height? "));
+
+massMark = new Number(prompt("What is Mark's weight? "));
+heightMark = new Number(prompt("What is Mark's height? "));
+
+// calculate BMI
+bmiJohn = massJohn / heightJohn ** 2;
+bmiMark = massMark / heightMark ** 2;
+console.log(
+  `John's details - height: ${heightJohn}, weight: ${massJohn} and, bmi: ${bmiJohn}`
+);
+console.log(
+  `Mark's details - height: ${heightMark}, weight: ${heightMark} and, bmi: ${bmiMark}`
+);
+
+if (bmiMark > bmiJohn) console.log("Mark's BMI higher than John's");
+else console.log(`John's BMI is higher than Mark's.`);

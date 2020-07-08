@@ -140,7 +140,8 @@ console.log(x); */
 * GOOD LUCK 😀
 */
 // Solution
-let massJohn, massMark, heightJohn, heightMark, bmiJohn, bmiMark;
+
+/* let massJohn, massMark, heightJohn, heightMark, bmiJohn, bmiMark;
 massJohn = new Number(prompt('What is John\'s weight? '));
 heightJohn = new Number(prompt('What is John\'s height? '));
 console.log('weight of john: ' + massJohn);
@@ -157,4 +158,4 @@ console.log("bmi of john: " + bmiJohn);
 console.log("bmi of mark: " + bmiMark);
 
 let isBmiHigher = bmiMark > bmiJohn;
-console.log('Is Mark\'s BMI higher than John\'s? ' + isBmiHigher);
+console.log('Is Mark\'s BMI higher than John\'s? ' + isBmiHigher); */

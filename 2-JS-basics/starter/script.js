@@ -368,3 +368,29 @@ function years_till_retirement(birth_year, retirement_age, firstName) {
 years_till_retirement(1990, 65, "John");
 years_till_retirement(1948, 65, "Mike");
 years_till_retirement(1969, 65, "Jane"); */
+
+/*****************************
+ * Function Statement and Expressions
+ */
+
+// function declaration
+// function whatDoYouDo(job, firstName) {}
+
+// functional expression
+var what_do_you_do = function (job, firstName) {
+  switch (job) {
+    case "teacher":
+    case "instructor":
+      return `${firstName} teaches kids how to code.`;
+    case "driver":
+      return `${firstName} drives a cab in Lisbon.`;
+    case "designer":
+      return `${firstName} designs beautiful websites.`;
+    default:
+      return `${firstName} does something else.`;
+  }
+};
+
+console.log(what_do_you_do("teacher", "John"));
+console.log(what_do_you_do("designer", "Jane"));
+console.log(what_do_you_do("retired", "Mark"));

@@ -377,7 +377,7 @@ years_till_retirement(1969, 65, "Jane"); */
 // function whatDoYouDo(job, firstName) {}
 
 // functional expression
-var what_do_you_do = function (job, firstName) {
+/* var what_do_you_do = function (job, firstName) {
   switch (job) {
     case "teacher":
     case "instructor":
@@ -393,4 +393,87 @@ var what_do_you_do = function (job, firstName) {
 
 console.log(what_do_you_do("teacher", "John"));
 console.log(what_do_you_do("designer", "Jane"));
-console.log(what_do_you_do("retired", "Mark"));
+console.log(what_do_you_do("retired", "Mark")); */
+
+/*****************************
+ * Arrays
+ */
+
+// initialize new array
+/* let names = ["John", "Mark", "Jane"];
+let years = new Array(1990, 1969, 1948);
+
+console.log(names);
+console.log(names[0]);
+console.log(names.length);
+
+// Mutate Array data
+names[1] = "Ben";
+names[names.length] = "Mary";
+names[6] = "Julia";
+console.log(names);
+
+let john = ["John", "Smith", 1990, "teacher", false];
+console.log(john);
+
+// array methods
+john.push("blue");
+john.unshift("Mr.");
+console.log(john);
+
+john.pop();
+john.pop();
+john.shift();
+console.log(john);
+
+console.log(john.indexOf(1990));
+console.log(john.indexOf(23));
+
+var isDesigner =
+  john.indexOf("designer") === -1
+    ? "John is not a designer"
+    : "John is a designer";
+console.log(isDesigner); */
+
+/*****************************
+ * CODING CHALLENGE 3
+ */
+
+/*
+John and his family went on a holiday and went to 3 different restaurants. The bills were $124, $48 and $268.
+
+To tip the waiter a fair amount, John created a simple tip calculator (as a function). He likes to tip 20% of the bill when the bill is less than $50, 15% when the bill is between $50 and $200, and 10% if the bill is more than $200.
+
+In the end, John would like to have 2 arrays:
+1) Containing all three tips (one for each bill)
+2) Containing all three final paid amounts (bill + tip).
+
+(NOTE: To calculate 20% of a value, simply multiply it with 20/100 = 0.2)
+
+GOOD LUCK 😀
+*/
+
+function calculate_tip(bill_amount) {
+  if (bill_amount < 0) return null;
+  switch (true) {
+    case bill_amount > 0 && bill_amount < 50:
+      return bill_amount * 0.2;
+    case bill_amount >= 50 && bill_amount < 200:
+      return bill_amount * 0.15;
+    case bill_amount >= 200:
+      return bill_amount * 0.1;
+  }
+}
+
+let bills = new Array(124, 48, 268);
+let tips = [];
+let total = [];
+for (const bill of bills) {
+  let tip = calculate_tip(bill);
+  tips.push(tip);
+  total.push(bill + tip);
+}
+
+console.log(bills);
+console.log(tips);
+console.log(total);

@@ -481,7 +481,7 @@ console.log(total);
 /*****************************
  * Objects and Properties
  */
-
+/* 
 // Object literals
 let john = {
   firstName: "John",
@@ -508,3 +508,29 @@ jane.name = 'Jane'
 jane.birthYear = 1969
 jane.lastName = 'Smith'
 console.log(jane);
+ */
+
+/*****************************
+ * Objects and Methods
+ */
+
+let john = {
+  firstName: "John",
+  lastName: "Smith",
+  birthYear: 1990,
+  family: ["Jane", "Mark", "Bom", "Emily"],
+  job: "teacher",
+  isMarried: false,
+  /* calculate_age: (birthYear) => {
+    return new Date().getFullYear() - birthYear;
+  }, */
+  /* calculate_age: function () {
+    return new Date().getFullYear() - this.birthYear;
+  }, */
+  calculate_age: function () {
+    this.age = new Date().getFullYear() - this.birthYear;
+  },
+};
+
+john.calculate_age();
+console.log(john);

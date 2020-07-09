@@ -82,3 +82,48 @@ function third() {
 ///////////////////////////////////////
 // Lecture: The this keyword
 
+/* 'this' variable is stored in execution context
+ * every object gets the 'this' variable.
+ * the scope of 'this' varies depending on the context.
+ * default is global or window
+ * the context is set to the object calling the function/method in case of method call
+ * The 'this' keyword is defined/assigned a value only at the time of method call.
+ */
+
+// console.log(this);
+
+// calculate_age(2008);
+
+// function calculate_age(year) {
+//   console.log(new Date().getFullYear() - year);
+//   console.log(this);
+// }
+/* 
+var john = {
+  name: "John",
+  yearOfBirth: 1990,
+  calculateAge: function () {
+    console.log(new Date().getFullYear() - this.yearOfBirth);
+    console.log(this);
+
+    function innerFunction() {
+      console.log(this); // points to window global scope.
+    }
+    innerFunction();
+  },
+};
+
+john.calculateAge();
+
+var mike = {
+  name: "Mike",
+  yearOfBirth: 1984,
+};
+
+// method borrowing - assign the method of one object to another object.
+// john.calculateAge is actually a function expression
+mike.calculateAge = john.calculateAge;
+mike.calculateAge();
+// as the 'this' is assigned a context only at the time of calling the method
+// mike's calculateAge has mike as the context.
+ */

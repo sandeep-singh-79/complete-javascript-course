@@ -34,6 +34,9 @@ console.log(age);
 
 ///////////////////////////////////////
 // Lecture: Scoping
+// to define or limit the scope, JS requires us to create a new function
+// lexical scoping - a nested function can access the members of the outer(parent) function.
+// locally scoped variables are not visible in parent scope.
 
 // First scoping example
 
@@ -54,25 +57,28 @@ function first() {
 
 // Example to show the differece between execution stack and scope chain
 
-/*
-var a = 'Hello!';
+/* 
+var a = "Hello!";
 first();
 
 function first() {
-    var b = 'Hi!';
-    second();
+  var b = "Hi!";
+  second();
 
-    function second() {
-        var c = 'Hey!';
-        third()
-    }
+  function second() {
+    var c = "Hey!";
+    third();
+  }
 }
 
 function third() {
-    var d = 'John';
-    console.log(a + b + c + d);
-}
+  var d = "John";
+  // console.log(c); // this is not accessible here as c is not in scope of function third
+  // console.log(a + d);
+  console.log(a + b + c + d); // again b and c are not available here.
+} 
 */
 
 ///////////////////////////////////////
 // Lecture: The this keyword
+

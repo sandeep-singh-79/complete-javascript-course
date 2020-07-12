@@ -28,7 +28,10 @@ function init_game() {
     document.getElementById(`score-${i}`).textContent = 0;
     document.getElementById(`current-${i}`).textContent = 0;
     document.getElementById(`name-${i}`).textContent = `Player ${i + 1}`;
+    document.querySelector(`.player-${i}-panel`).classList.remove("winner");
+    document.querySelector(`.player-${i}-panel`).classList.remove("active");
   }
+  document.querySelector(`.player-0-panel`).classList.add("active");
 }
 
 // a callback function is a function that is not called by us explicitly

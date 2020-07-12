@@ -33,7 +33,10 @@ function init_game() {
   //document.querySelector("#current-" + current_player).textContent = dice;
   // document.querySelector("#current-" + current_player).innerHTML = `<em>${dice}</em>`;
 
-  document.querySelector(".dice").style.display = "none";
+  var die = document.getElementsByClassName("dice");
+  for (const dice of die) {
+    dice.style.display = "none";
+  }
 
   for (let i = 0; i <= 1; ++i) {
     document.getElementById(`score-${i}`).textContent = 0;

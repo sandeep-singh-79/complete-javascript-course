@@ -57,19 +57,19 @@ document.querySelector(".btn-roll").addEventListener("click", function () {
     var dice = Math.floor(Math.random() * 6 + 1);
     // Step 2. display result
     var diceDOM = document.querySelector(".dice");
-    var dice_src_path = diceDOM.src.toString();
+    /* var dice_src_path = diceDOM.src.toString();
     previous_die_roll = parseInt(
       dice_src_path.substr(dice_src_path.length - 5, 1)
-    );
+    ); */
     diceDOM.style.display = "block";
     diceDOM.src = `dice-${dice}.png`;
     // Step 3. update the round score only if the die roll !== 1
     if (dice === 6 && previous_die_roll === 6) {
       arr_scores[current_player] = 0;
-      round_score = 0;
-      // set the UI scores to 0 as well
-      document.getElementById(`score-${current_player}`).textContent = 0;
-      document.getElementById(`current-${current_player}`).textContent = 0;
+      //round_score = 0;
+      document.getElementById(`score-${current_player}`).textContent =
+        arr_scores[current_player];
+      //document.getElementById(`current-${current_player}`).textContent = 0;
       switch_player();
     }
     if (dice !== 1) {
@@ -81,6 +81,8 @@ document.querySelector(".btn-roll").addEventListener("click", function () {
     } else {
       switch_player();
     }
+
+    previous_die_roll = dice;
   }
 });
 
@@ -125,4 +127,3 @@ function switch_player() {
 
 //document.querySelector(".btn-new").addEventListener("click", function () { init_game() });
 document.querySelector(".btn-new").addEventListener("click", init_game);
-

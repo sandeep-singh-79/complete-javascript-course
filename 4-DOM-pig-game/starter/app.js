@@ -8,7 +8,7 @@ GAME RULES:
 - The first player to reach 100 points on GLOBAL score wins the game
 
 */
-let arr_scores, round_score, current_player;
+var arr_scores, round_score, current_player, is_game_active;
 
 init_game();
 
@@ -16,6 +16,7 @@ function init_game() {
   arr_scores = [0, 0];
   round_score = 0;
   current_player = 0;
+  is_game_active = true;
 
   // concatinating the current player to ease access to the score panels
   // and reduce code redundancy
@@ -41,43 +42,50 @@ function init_game() {
 // document.querySelector(".btn-roll").addEventListener('click', doSmthngOnBtnClick);
 // alternately, we can use an anonymous function as below:
 document.querySelector(".btn-roll").addEventListener("click", function () {
-  // Step 1. Generate random number
-  var dice = Math.floor(Math.random() * 6 + 1);
-  // Step 2. display result
-  var diceDOM = document.querySelector(".dice");
-  diceDOM.style.display = "block";
-  diceDOM.src = `dice-${dice}.png`;
-  // Step 3. update the round score only if the die roll !== 1
-  if (dice !== 1) {
-    document.querySelector(".dice").style.display = "block";
-    round_score += dice;
-    document.querySelector(
-      `#current-${current_player}`
-    ).textContent = round_score;
-  } else {
-    switch_player();
+  if (is_game_active) {
+    // Step 1. Generate random number
+    var dice = Math.floor(Math.random() * 6 + 1);
+    // Step 2. display result
+    var diceDOM = document.querySelector(".dice");
+    diceDOM.style.display = "block";
+    diceDOM.src = `dice-${dice}.png`;
+    // Step 3. update the round score only if the die roll !== 1
+    if (dice !== 1) {
+      document.querySelector(".dice").style.display = "block";
+      round_score += dice;
+      document.querySelector(
+        `#current-${current_player}`
+      ).textContent = round_score;
+    } else {
+      switch_player();
+    }
   }
 });
 
 document.querySelector(".btn-hold").addEventListener("click", function () {
-  // step 1. add current score to global score
-  arr_scores[current_player] += round_score;
-  // update the UI
-  document.querySelector(`#score-${current_player}`).textContent =
-    arr_scores[current_player];
-  // check if player won the game
-  if (arr_scores[current_player] >= 100) {
-    document.querySelector(`#name-${current_player}`).textContent = `Winner!!!`;
-    document.querySelector(`.dice`).style.display = "none";
-    document
-      .querySelector(`.player-${current_player}-panel`)
-      .classList.add("winner");
-    document
-      .querySelector(`.player-${current_player}-panel`)
-      .classList.remove("active");
-  } else {
-    // switch player
-    switch_player();
+  if (is_game_active) {
+    // step 1. add current score to global score
+    arr_scores[current_player] += round_score;
+    // update the UI
+    document.querySelector(`#score-${current_player}`).textContent =
+      arr_scores[current_player];
+    // check if player won the game
+    if (arr_scores[current_player] >= 100) {
+      document.querySelector(
+        `#name-${current_player}`
+      ).textContent = `Winner!!!`;
+      document.querySelector(`.dice`).style.display = "none";
+      document
+        .querySelector(`.player-${current_player}-panel`)
+        .classList.add("winner");
+      document
+        .querySelector(`.player-${current_player}-panel`)
+        .classList.remove("active");
+      is_game_active = false;
+    } else {
+      // switch player
+      switch_player();
+    }
   }
 });
 

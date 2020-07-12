@@ -93,10 +93,13 @@ document.querySelector(".btn-hold").addEventListener("click", function () {
     // update the UI
     document.querySelector(`#score-${current_player}`).textContent =
       arr_scores[current_player];
-    // check if player won the game
-    if (
-      arr_scores[current_player] >= document.querySelector(".final-score").value
-    ) {
+
+    var input = document.querySelector(".final-score").value;
+    var winning_score;
+
+    input ? (winning_score = input) : (winning_score = 100);
+
+    if (arr_scores[current_player] >= winning_score) {
       document.querySelector(
         `#name-${current_player}`
       ).textContent = `Winner!!!`;

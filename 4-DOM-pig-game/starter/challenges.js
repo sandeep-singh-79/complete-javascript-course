@@ -18,6 +18,7 @@ Change the game to follow these rules:
 */
 
 var arr_scores, round_score, current_player, is_game_active, previous_die_roll;
+var diceDOM;
 
 init_game();
 
@@ -27,16 +28,10 @@ function init_game() {
   current_player = 0;
   is_game_active = true;
   previous_die_roll = 0;
+    diceDOM = document.querySelectorAll('.dice');
 
-  // concatinating the current player to ease access to the score panels
-  // and reduce code redundancy
-  //document.querySelector("#current-" + current_player).textContent = dice;
-  // document.querySelector("#current-" + current_player).innerHTML = `<em>${dice}</em>`;
-
-  var die = document.getElementsByClassName("dice");
-  for (const dice of die) {
+  for (const dice of diceDOM)
     dice.style.display = "none";
-  }
 
   for (let i = 0; i <= 1; ++i) {
     document.getElementById(`score-${i}`).textContent = 0;
@@ -57,27 +52,31 @@ function init_game() {
 document.querySelector(".btn-roll").addEventListener("click", function () {
   if (is_game_active) {
     // Step 1. Generate random number
-    var dice = Math.floor(Math.random() * 6 + 1);
+    var die_1 = Math.floor(Math.random() * 6 + 1);
+    var die_2 = Math.floor(Math.random() * 6 + 1);
     // Step 2. display result
-    var diceDOM = document.querySelector(".dice");
+    // var diceDOM = document.querySelectorAll(".dice");
     /* var dice_src_path = diceDOM.src.toString();
     previous_die_roll = parseInt(
       dice_src_path.substr(dice_src_path.length - 5, 1)
     ); */
-    diceDOM.style.display = "block";
-    diceDOM.src = `dice-${dice}.png`;
+    for (const dice of diceDOM) dice.style.display = "block";
+    diceDOM[0].src = `dice-${die_1}.png`;
+    diceDOM[1].src = `dice-${die_2}.png`;
+
     // Step 3. update the round score only if the die roll !== 1
-    if (dice === 6 && previous_die_roll === 6) {
-      arr_scores[current_player] = 0;
-      //round_score = 0;
-      document.getElementById(`score-${current_player}`).textContent =
-        arr_scores[current_player];
-      //document.getElementById(`current-${current_player}`).textContent = 0;
-      switch_player();
-    }
-    if (dice !== 1) {
-      document.querySelector(".dice").style.display = "block";
-      round_score += dice;
+    /* if (die_1 === 6 && previous_die_roll === 6) {
+        arr_scores[current_player] = 0;
+        //round_score = 0;
+        document.getElementById(`score-${current_player}`).textContent =
+          arr_scores[current_player];
+        //document.getElementById(`current-${current_player}`).textContent = 0;
+        switch_player();
+      } else  */ if (
+      die_1 !== 1 &&
+      die_2 !== 1
+    ) {
+      round_score += die_1 + die_2;
       document.querySelector(
         `#current-${current_player}`
       ).textContent = round_score;
@@ -85,7 +84,7 @@ document.querySelector(".btn-roll").addEventListener("click", function () {
       switch_player();
     }
 
-    previous_die_roll = dice;
+    // previous_die_roll = die_1;
   }
 });
 
@@ -106,7 +105,7 @@ document.querySelector(".btn-hold").addEventListener("click", function () {
       document.querySelector(
         `#name-${current_player}`
       ).textContent = `Winner!!!`;
-      document.querySelector(`.dice`).style.display = "none";
+      for (const dice of document.querySelectorAll('.dice')) dice.style.display = "none";
       document
         .querySelector(`.player-${current_player}-panel`)
         .classList.add("winner");
@@ -126,11 +125,13 @@ function switch_player() {
   current_player === 0 ? (current_player = 1) : (current_player = 0);
   for (let i = 0; i <= 1; ++i) {
     document.getElementById(`current-${i}`).textContent = 0;
+    document.querySelector(`.player-${i}-panel`).classList.toggle("active");
   }
 
-  document.querySelector(`.player-0-panel`).classList.toggle("active");
-  document.querySelector(`.player-1-panel`).classList.toggle("active");
-  document.querySelector(".dice").style.display = "none";
+  /* document.querySelector(`.player-0-panel`).classList.toggle("active");
+  document.querySelector(`.player-1-panel`).classList.toggle("active"); */
+  for (const dice of diceDOM)
+    dice.style.display = "none";
 }
 
 //document.querySelector(".btn-new").addEventListener("click", function () { init_game() });

@@ -100,3 +100,42 @@ change(age, obj);
 console.log(age);
 console.log(obj.city);
  */
+
+/////////////////////////////
+// Lecture: Passing functions as arguments
+/* 
+// functions are first rate citizens. They are derived from Object
+// they can be passed to other functions. A function can also return a function
+// a function passed to another function is called a callback function.
+var years = [1990, 1965, 1937, 2005, 1995];
+
+function array_calc(arr, fn) {
+  var arr_result = [];
+  // for (const arr_item of arr) {
+  //   arr_result.push(fn(arr_item));
+  // }
+  arr.forEach((element) => {
+    arr_result.push(fn(element));
+  });
+
+  return arr_result;
+}
+
+function isOfAge(age) {
+  return age >= 18;
+}
+
+function calc_age(birth_year) {
+  return new Date().getFullYear() - birth_year;
+}
+
+function max_heart_rate(age) {
+  if (age >= 18 && age <= 81) return Math.round(206.9 - 6.67 * age);
+  else return -1;
+}
+
+const ages = array_calc(years, calc_age);
+console.log(ages);
+console.log(array_calc(ages, isOfAge));
+console.log(array_calc(ages, max_heart_rate));
+ */

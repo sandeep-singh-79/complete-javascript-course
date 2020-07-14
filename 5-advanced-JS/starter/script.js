@@ -65,3 +65,38 @@ var jane = Object.create(personProto, {
 // function coonstructor.
 // The main benefit of Object.create allows for implementation of complex inheritance.
  */
+
+/////////////////////////////
+// Lecture: Primitives vs objects
+/* 
+var a = 35;
+var b = a;
+a = 39;
+console.log(`a: ${a}`, `b: ${b}`);
+
+var obj1 = {
+  name: "John",
+  age: 25,
+};
+var obj2 = obj1;
+obj1.age = 98;
+console.log(obj1);
+console.log(obj2);
+
+// Functions
+var age = 27;
+var obj = {
+  name: "Jonas",
+  city: "Lisbon",
+};
+
+function change(a, b) {
+  a = 30;
+  b.city = "San Francisco";
+}
+
+change(age, obj);
+
+console.log(age);
+console.log(obj.city);
+ */

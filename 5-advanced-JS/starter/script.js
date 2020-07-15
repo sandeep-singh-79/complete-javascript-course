@@ -239,3 +239,64 @@ function interview_question(job) {
 
 interview_question('teacher')('John');
 */
+
+/////////////////////////////
+// Lecture: Bind, Call, Apply
+/* 
+// The above methods allow for setting a manual context for the 'this' object
+
+var john = {
+  name: "John",
+  age: 26,
+  job: "teacher",
+  presentation: function (style, time_of_day) {
+    if (style === "formal")
+      console.log(
+        `Good ${time_of_day}, Ladies and Gentlemen! I'm ${this.name}, I'm a ${this.job} and, I'm ${this.age} years old.`
+      );
+    else if (style === "friendly")
+      console.log(
+        `Hey! What's up? I'm ${this.name}, I'm a ${this.job} and, I'm ${this.age} years old. Have a nice ${time_of_day}.`
+      );
+  },
+};
+
+var emily = {
+  name: "Emily",
+  age: 35,
+  job: "designer",
+};
+
+john.presentation("formal", "Morning");
+// to call the presentation method on emily object without defining it. this is called method borrowing
+// method 1: call method.
+john.presentation.call(emily, "friendly", "afternoon");
+john.presentation.apply(emily, ["friendly", "afternoon"]);
+// with bind we can create a static binding of the this object as well as a specific parameter. This is also called 'Currying'.
+var johnFriendly = john.presentation.bind(john, "friendly");
+johnFriendly("morning");
+johnFriendly("afternoon");
+johnFriendly("night");
+
+var years = [1990, 1965, 1937, 2005, 1995];
+
+function array_calc(arr, fn) {
+  var arr_result = [];
+  arr.forEach((element) => {
+    arr_result.push(fn(element));
+  });
+
+  return arr_result;
+}
+
+function isOfAge(limit, age) {
+  return age >= limit;
+}
+
+function calc_age(birth_year) {
+  return new Date().getFullYear() - birth_year;
+}
+
+console.log(array_calc(years, calc_age));
+console.log(array_calc(array_calc(years, calc_age), isOfAge.bind(this, 20)));
+ */

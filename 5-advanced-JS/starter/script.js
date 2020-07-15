@@ -199,3 +199,43 @@ console.log(designer_question('John'));
   console.log(Math.random() * 10 >= 5 - goodluck);
 })(5);
  */
+
+/////////////////////////////
+// Lecture: Closures
+/* 
+// calculate the time left till retirement
+// create a function tha returns a function that does that
+function years_till_retirement(retire_age) {
+  var a = " years left until retirement.";
+  return function (yearOfBirth) {
+    var age = new Date().getFullYear() - yearOfBirth;
+    console.log(retire_age - age + a);
+  };
+}
+
+// On calling function years_till_retirement, the variable 'a' is created and
+// the anonymous function is returned. On calling the returned function with the current age
+// of the candidate, the calculation and completed and the correct result output.
+var retirement_age_US = years_till_retirement(66);
+var retirement_age_germany = years_till_retirement(65);
+var retirement_age_iceland = years_till_retirement(67);
+retirement_age_germany(1990);
+retirement_age_US(1990);
+retirement_age_iceland(1990);
+// the below is similar to the US retirement example.
+//years_till_retirement(66)(1990);
+ 
+function interview_question(job) {
+  return function (name) {
+    if (job === "designer") {
+      console.log(`${name}, can you please explain what UX design is?`);
+    } else if (job === "teacher") {
+      console.log(`What subject do you teach ${name}?`);
+    } else {
+      console.log(`Hello ${name}! What do you do?`);
+    }
+  };
+}
+
+interview_question('teacher')('John');
+*/

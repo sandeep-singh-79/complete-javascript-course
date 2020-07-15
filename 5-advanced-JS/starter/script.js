@@ -139,3 +139,30 @@ console.log(ages);
 console.log(array_calc(ages, isOfAge));
 console.log(array_calc(ages, max_heart_rate));
  */
+
+/////////////////////////////
+// Lecture: Functions returning functions
+
+function interview_question(job) {
+  // depending on the job a different function is returned
+  if (job === "designer") {
+    return function (name) {
+      console.log(`${name}, can you please explain what UX design is?`);
+    };
+  } else if (job === "teacher") {
+    return function (name) {
+      console.log(`What subject do you teach ${name}?`);
+    };
+  } else {
+    return function (name) {
+      console.log(`Hello ${name}! What do you do?`);
+    };
+  }
+}
+
+var teacher_question = interview_question('teacher');
+var designer_question = interview_question('designer');
+
+console.log(teacher_question('John'));
+console.log(interview_question('teacher')('Mark'));
+console.log(designer_question('John')); 

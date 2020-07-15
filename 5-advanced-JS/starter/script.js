@@ -142,7 +142,7 @@ console.log(array_calc(ages, max_heart_rate));
 
 /////////////////////////////
 // Lecture: Functions returning functions
-
+/* 
 function interview_question(job) {
   // depending on the job a different function is returned
   if (job === "designer") {
@@ -166,3 +166,36 @@ var designer_question = interview_question('designer');
 console.log(teacher_question('John'));
 console.log(interview_question('teacher')('Mark'));
 console.log(designer_question('John')); 
+*/
+
+/////////////////////////////
+// Lecture: Immediately invoked Function Expressions (IIFE)
+/* 
+// a game where a player wins if the score is greater than 5
+// the score should not be displayed in public
+
+// function game() {
+//   console.log(Math.random() * 10 >= 5);
+// }
+
+// game();
+
+// how to use IIFE:
+// create an anonymous function
+// surround it with parentheses
+// then call it by supplying another set of empty parentheses.
+// doing this promotes data privacy.
+// an IIFE can be called only once
+
+(function () {
+  var score = Math.random() * 10;
+  console.log(score >= 5);
+})();
+//console.log(score); // as score is private to the anonymous function.
+
+// IIFE with a param
+// simply pass the param value in the final parentheses
+(function (goodluck) {
+  console.log(Math.random() * 10 >= 5 - goodluck);
+})(5);
+ */

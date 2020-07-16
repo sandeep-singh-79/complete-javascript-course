@@ -399,6 +399,70 @@ function is_answer_correct(selected_question, user_answer) {
 }
  */
 
+//// Suggested solution
+// Use IIFE to limit the scope of the code.
+(function () {
+  function Question(question, answers, correct_answer) {
+    this.question = question;
+    this.answers = answers;
+    this.correct_answer = correct_answer;
+  }
+
+  Question.prototype.display_question = function () {
+    console.log(this.question);
+    for (var i = 0; i < this.answers.length; ++i) {
+      console.log(`${i}: ${this.answers[i]}`);
+    }
+  };
+
+  Queestion.prototype.is_correct_answer = function (answer) {
+    if (answer === this.correct_answer) {
+      console.log("You've answered correctly");
+    } else {
+      console.log("You've answered incorrectly");
+    }
+  };
+
+  var questions = new Array();
+  var total_questions = questions.push(
+    new Question(
+      "How does selenium work?",
+      ["Json Wire Protocol (JWP)", "Javascript", "Java", "Direct injection"],
+      0
+    ),
+    new Question(
+      "What is TestNG?",
+      ["API", "Test Framework", "Junit", "Browser"],
+      1
+    ),
+    new Question(
+      "What is the usecase for Maven?",
+      ["Build lifecycle", "Project creation", "Testing", "Development"],
+      0
+    ),
+    new Question(
+      "Most Important feature of a framework?",
+      ["Reporting", "screenshots", "analytics", "Video Recording"],
+      0
+    )
+  );
+
+  function select_random_question_index(total_questions) {
+    return Math.floor(Math.random() * total_questions);
+  }
+
+  const question_index = select_random_question_index(total_questions);
+  questions[question_index].display_question();
+
+  var answer = parseInt(
+    prompt(
+      "Please select the correct answer (just type the number). Enter exit to quit."
+    )
+  );
+
+  questions(question_index).is_correct_answer(answer);
+})();
+
 /*
 --- Expert level ---
 

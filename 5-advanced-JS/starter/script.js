@@ -471,7 +471,7 @@ function is_answer_correct(selected_question, user_answer) {
 10. Track the user's score to make the game more fun! So each time an answer is correct, add 1 point to the score (Hint: I'm going to use the power of closures for this, but you don't have to, just do this with the tools you feel more comfortable at this point).
 11. Display the score in the console. Use yet another method for this.
 */
-
+/* 
 (function () {
   function Question(question, answers, correct_answer) {
     this.question = question;
@@ -559,3 +559,4 @@ function is_answer_correct(selected_question, user_answer) {
 
   next_question();
 })();
+*/

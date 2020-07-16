@@ -401,7 +401,7 @@ function is_answer_correct(selected_question, user_answer) {
 
 //// Suggested solution
 // Use IIFE to limit the scope of the code.
-(function () {
+/* (function () {
   function Question(question, answers, correct_answer) {
     this.question = question;
     this.answers = answers;
@@ -461,7 +461,7 @@ function is_answer_correct(selected_question, user_answer) {
   );
 
   questions(question_index).is_correct_answer(answer);
-})();
+})(); */
 
 /*
 --- Expert level ---
@@ -471,3 +471,91 @@ function is_answer_correct(selected_question, user_answer) {
 10. Track the user's score to make the game more fun! So each time an answer is correct, add 1 point to the score (Hint: I'm going to use the power of closures for this, but you don't have to, just do this with the tools you feel more comfortable at this point).
 11. Display the score in the console. Use yet another method for this.
 */
+
+(function () {
+  function Question(question, answers, correct_answer) {
+    this.question = question;
+    this.answers = answers;
+    this.correct_answer = correct_answer;
+  }
+
+  Question.prototype.display_question = function () {
+    console.log(this.question);
+    for (var i = 0; i < this.answers.length; ++i) {
+      console.log(`${i}: ${this.answers[i]}`);
+    }
+  };
+
+  Question.prototype.is_correct_answer = function (answer, fn_score_count) {
+    var score;
+    ++question_count;
+    if (answer === this.correct_answer) {
+      console.log("You've answered correctly");
+      score = fn_score_count(true);
+    } else {
+      console.log("You've answered incorrectly");
+      score = fn_score_count(false);
+    }
+    this.display_score(score, question_count);
+  };
+
+  Question.prototype.display_score = function (score, question_count) {
+    console.log(
+      `You have answered ${score} of ${question_count} questions correctly!!!!`
+    );
+    console.log("--------------------------------------");
+  };
+
+  var questions = new Array();
+  var total_questions = questions.push(
+    new Question(
+      "How does selenium work?",
+      ["Json Wire Protocol (JWP)", "Javascript", "Java", "Direct injection"],
+      0
+    ),
+    new Question(
+      "What is TestNG?",
+      ["API", "Test Framework", "Junit", "Browser"],
+      1
+    ),
+    new Question(
+      "What is the usecase for Maven?",
+      ["Build lifecycle", "Project creation", "Testing", "Development"],
+      0
+    ),
+    new Question(
+      "Most Important feature of a framework?",
+      ["Reporting", "screenshots", "analytics", "Video Recording"],
+      0
+    )
+  );
+
+  function score() {
+    var user_answer_count = 0;
+    return function (correct) {
+      if (correct) ++user_answer_count;
+      return user_answer_count;
+    };
+  }
+  var keep_user_score = score();
+  var question_count = 0;
+
+  function next_question() {
+    const question_index = Math.floor(Math.random() * total_questions);
+    questions[question_index].display_question();
+
+    var answer = prompt(
+      "Please select the correct answer (just type the number). Enter exit to quit."
+    );
+
+    if (answer !== "exit") {
+      questions[question_index].is_correct_answer(
+        parseInt(answer),
+        keep_user_score
+      );
+      next_question();
+    }
+  }
+
+  next_question();
+})();

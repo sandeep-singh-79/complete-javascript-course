@@ -14,7 +14,51 @@
 // Defining modules by using an IIFE & closures
 // this simulates Model-View-Constroller
 var budgetController = (function () {
-  return {};
+  var Expense = function (id, description, amount) {
+    this.id = id;
+    this.description = description;
+    this.amount = amount;
+  };
+
+  var Income = function (id, description, amount) {
+    this.id = id;
+    this.description = description;
+    this.amount = amount;
+  };
+
+  var data = {
+    items: {
+      exp: [],
+      inc: [],
+    },
+    totals: {
+      exp: 0,
+      inc: 0,
+    },
+  };
+
+  return {
+    add_item: function (type, description, amount) {
+      var new_item;
+      if (data.items[type].length > 0) {
+        var IDs = data.items[type].id;
+        var max_id = Math.max(IDs) + 1;
+      } else max_id = 0;
+      new_item =
+        type === "inc"
+          ? new Income(max_id, description, amount)
+          : new Expense(max_id, description, amount);
+      data.items[type].push(new_item);
+      return new_item;
+    },
+    add_to_total: function (type, new_item) {
+      data.totals[type] += new_item.amount;
+      return data.totals[type];
+    },
+    calculate_budget: function () {
+      return data.totals.inc - data.totals.exp;
+    },
+  };
 })();
 
 var uiController = (function () {
@@ -59,10 +103,12 @@ var app_controller = (function (bdgtCtrlr, uiCtrlr) {
   };
 
   var ctrl_add_item = function () {
+    var input, new_item;
     // TODO: get text field value
-    var input = uiCtrlr.get_input_value();
-    console.log(input);
+    input = uiCtrlr.get_input_value();
     // TODO: Add the value to budget controller
+    new_item = bdgtCtrlr.add_item(input.type, input.description, input.amount);
+    console.log(new_item);
     // TODO: Add the value to the UI
     // TODO: calculate the budget
     // TODO: display the budget on the UI

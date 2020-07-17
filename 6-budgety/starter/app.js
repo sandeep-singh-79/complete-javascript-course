@@ -43,7 +43,21 @@ var uiController = (function () {
 // we are going to pass the other two controllers in to app_controller
 // we use closures to return a value
 var app_controller = (function (bdgtCtrlr, uiCtrlr) {
-  var DOM_elements = uiController.get_DOM_elements();
+  var setup_event_listeners = function () {
+    var DOM_elements = uiController.get_DOM_elements();
+    // using the callback as there are no checks inside the anonymous function.
+    document
+      .querySelector(DOM_elements.add_to_budget)
+      .addEventListener("click", ctrl_add_item);
+
+    // add the keypress event listener to the global document.
+    document.addEventListener("keypress", function (event) {
+      if (event.keyCode === 13 || event.which === 13) {
+        ctrl_add_item();
+      }
+    });
+  };
+
   var ctrl_add_item = function () {
     // TODO: get text field value
     var input = uiCtrlr.get_input_value();
@@ -53,18 +67,13 @@ var app_controller = (function (bdgtCtrlr, uiCtrlr) {
     // TODO: calculate the budget
     // TODO: display the budget on the UI
   };
-
-  // using the callback as there are no checks inside the anonymous function.
-  document
-    .querySelector(DOM_elements.add_to_budget)
-    .addEventListener("click", ctrl_add_item);
-
-  // add the keypress event listener to the global document.
-  document.addEventListener("keypress", function (event) {
-    if (event.keyCode === 13 || event.which === 13) {
-      ctrl_add_item();
-    }
-  });
   // only way to access the variables/functions defined inside an IIFE
-  return {};
+  return {
+    // expose the eventlisteners to initialize the whole thing
+    init: function () {
+      setup_event_listeners();
+    },
+  };
 })(budgetController, uiController);
+
+app_controller.init();

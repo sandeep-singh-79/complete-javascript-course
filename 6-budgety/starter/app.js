@@ -67,6 +67,8 @@ var uiController = (function () {
     input_desc: ".add__description",
     input_value: ".add__value",
     add_to_budget: ".add__btn",
+    income_container: ".income__list",
+    expense_container: ".expenses__list",
   };
   return {
     // first method
@@ -80,6 +82,36 @@ var uiController = (function () {
     // second method
     get_DOM_elements: function () {
       return DOM_elements;
+    },
+    add_list_item: function (type, item) {
+      var html, ele;
+
+      if (type === "inc") {
+        html = `<div class="item clearfix" id="income-${item.id}"> <div class="item__description">${item.description}</div> <div class="right clearfix"> <div class="item__value">+ ${item.amount}</div> <div class="item__delete"> <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button> </div> </div> </div>`;
+        ele = DOM_elements.income_container;
+      } else if (type === "exp") {
+        html = `<div class="item clearfix" id="expense-${item.id}"> <div class="item__description">${item.description}</div> <div class="right clearfix"> <div class="item__value">- ${item.amount}</div> <div class="item__percentage">21%</div> <div class="item__delete"> <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button> </div> </div> </div>`;
+        ele = DOM_elements.expense_container;
+      }
+
+      // add the template to the page
+      document.querySelector(ele).insertAdjacentHTML("beforeend", html);
+      this.clear_fields();
+    },
+    clear_fields: function () {
+      var to_clear = document.querySelectorAll(
+        DOM_elements.input_desc + "," + DOM_elements.input_value
+      );
+      // querySelecterAll returns a list. This needs to be converted to an Array
+      // we use Array slice method. We use call method and pass the list reference
+      // This will enable the slice method to return an array
+      to_clear_fields = Array.prototype.slice.call(to_clear);
+      // here the anonymous function has access to the current element, the index
+      // as well as the original array.
+      to_clear_fields.forEach((element) => {
+        element.value = "";
+      });
+      to_clear_fields[0].focus();
     },
   };
 })();
@@ -102,16 +134,22 @@ var app_controller = (function (bdgtCtrlr, uiCtrlr) {
     });
   };
 
+  var update_budget = function () {
+    // calculate the budget
+    // return the budget
+    // display the budget on the UI
+  };
+
   var ctrl_add_item = function () {
     var input, new_item;
-    // TODO: get text field value
+    // get text field value
     input = uiCtrlr.get_input_value();
-    // TODO: Add the value to budget controller
+    // Add the value to budget controller
     new_item = bdgtCtrlr.add_item(input.type, input.description, input.amount);
-    console.log(new_item);
-    // TODO: Add the value to the UI
-    // TODO: calculate the budget
-    // TODO: display the budget on the UI
+    // Add the value to the UI
+    uiCtrlr.add_list_item(input.type, new_item);
+
+    this.update_budget();
   };
   // only way to access the variables/functions defined inside an IIFE
   return {

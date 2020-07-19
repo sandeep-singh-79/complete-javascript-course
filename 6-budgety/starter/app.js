@@ -76,7 +76,9 @@ var uiController = (function () {
       return {
         type: document.querySelector(DOM_elements.input_type).value, // with be either 'inc' or 'exp'
         description: document.querySelector(DOM_elements.input_desc).value,
-        amount: document.querySelector(DOM_elements.input_value).value,
+        amount: parseFloat(
+          document.querySelector(DOM_elements.input_value).value
+        ),
       };
     },
     // second method
@@ -144,12 +146,19 @@ var app_controller = (function (bdgtCtrlr, uiCtrlr) {
     var input, new_item;
     // get text field value
     input = uiCtrlr.get_input_value();
-    // Add the value to budget controller
-    new_item = bdgtCtrlr.add_item(input.type, input.description, input.amount);
-    // Add the value to the UI
-    uiCtrlr.add_list_item(input.type, new_item);
 
-    this.update_budget();
+    if (input.description !== "" && !isNaN(input.amount) && input.amount > 0) {
+      // Add the value to budget controller
+      new_item = bdgtCtrlr.add_item(
+        input.type,
+        input.description,
+        input.amount
+      );
+      // Add the value to the UI
+      uiCtrlr.add_list_item(input.type, new_item);
+
+      this.update_budget();
+    }
   };
   // only way to access the variables/functions defined inside an IIFE
   return {

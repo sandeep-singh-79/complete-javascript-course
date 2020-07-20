@@ -92,6 +92,10 @@ var uiController = (function () {
     add_to_budget: ".add__btn",
     income_container: ".income__list",
     expense_container: ".expenses__list",
+    budget_inc_value: ".budget__income--value",
+    budget_exp_value: ".budget__expenses--value",
+    budget_exp_percentage: ".budget__expenses--percentage",
+    budget_total: ".budget__value",
   };
   return {
     // first method
@@ -138,6 +142,17 @@ var uiController = (function () {
       });
       to_clear_fields[0].focus();
     },
+    display_budget: function (budget_data) {
+      document.querySelector(DOM_elements.budget_inc_value).textContent =
+        "+" + budget_data.total_income;
+      document.querySelector(DOM_elements.budget_exp_value).textContent =
+        "-" + budget_data.total_expenses;
+      document.querySelector(DOM_elements.budget_total).textContent =
+        budget_data.budget;
+
+      document.querySelector(DOM_elements.budget_exp_percentage).textContent =
+        budget_data.percentage > 0 ? budget_data.percentage + "%" : "--";
+    },
   };
 })();
 
@@ -165,7 +180,7 @@ var app_controller = (function (bdgtCtrlr, uiCtrlr) {
     // return the budget
     var budget_data = bdgtCtrlr.get_budget();
     // display the budget on the UI
-    console.log(budget_data);
+    uiCtrlr.display_budget(budget_data);
   };
 
   var ctrl_add_item = function () {
@@ -190,6 +205,12 @@ var app_controller = (function (bdgtCtrlr, uiCtrlr) {
   return {
     // expose the eventlisteners to initialize the whole thing
     init: function () {
+      uiCtrlr.display_budget({
+        budget: 0,
+        total_income: 0,
+        total_expenses: 0,
+        percentage: -1,
+      });
       setup_event_listeners();
     },
   };

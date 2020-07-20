@@ -64,16 +64,15 @@ var budgetController = (function () {
       return new_item;
     },
     delete_item: function (type, id) {
-      var deleted_item, index;
+      var index;
       if (data.items[type].length > 0) {
         index = data.items[type]
           .map(function (element) {
             return element.id;
           })
           .indexOf(id);
-        if (index !== -1) deleted_item = data.items[type].splice(index, 1);
+        if (index !== -1) data.items[type].splice(index, 1);
       }
-      return deleted_item;
     },
     calculate_budget: function () {
       calculate_total("exp");
@@ -133,16 +132,20 @@ var uiController = (function () {
       var html, ele;
 
       if (type === "inc") {
-        html = `<div class="item clearfix" id="inc-${item.id}"> <div class="item__description">${item.description}</div> <div class="right clearfix"> <div class="item__value">+ ${item.amount}</div> <div class="item__delete"> <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button> </div> </div> </div>`;
+        html = `<div class="item clearfix" id="inc-${item.id}"> <div class="item__description">${item.description}</div> <div class="right clearfix"> <div class="item__value">${item.amount}</div> <div class="item__delete"> <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button> </div> </div> </div>`;
         ele = DOM_elements.income_container;
       } else if (type === "exp") {
-        html = `<div class="item clearfix" id="exp-${item.id}"> <div class="item__description">${item.description}</div> <div class="right clearfix"> <div class="item__value">- ${item.amount}</div> <div class="item__percentage">21%</div> <div class="item__delete"> <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button> </div> </div> </div>`;
+        html = `<div class="item clearfix" id="exp-${item.id}"> <div class="item__description">${item.description}</div> <div class="right clearfix"> <div class="item__value">${item.amount}</div> <div class="item__percentage">21%</div> <div class="item__delete"> <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button> </div> </div> </div>`;
         ele = DOM_elements.expense_container;
       }
 
       // add the template to the page
       document.querySelector(ele).insertAdjacentHTML("beforeend", html);
       this.clear_fields();
+    },
+    delete_list_item: function (item_id) {
+      var element = document.getElementById(item_id);
+      element.parentNode.removeChild(element);
     },
     clear_fields: function () {
       var to_clear = document.querySelectorAll(
@@ -223,15 +226,16 @@ var app_controller = (function (bdgtCtrlr, uiCtrlr) {
     }
   };
   var delete_item = function (event) {
-    var id_to_delete, id_parts, deleted_item;
+    var id_to_delete, id_parts;
     // As the whole div needs to be deleted instead of the delete button. For this we need to capture the div parent
     id_to_delete = event.target.parentNode.parentNode.parentNode.parentNode.id;
     if (id_to_delete) {
       // first split the id to type and id
       id_parts = id_to_delete.split("-");
       // delete the item from DS
-      deleted_item = bdgtCtrlr.delete_item(id_parts[0], parseInt(id_parts[1]));
+      bdgtCtrlr.delete_item(id_parts[0], parseInt(id_parts[1]));
       // delete the item from UI
+      uiCtrlr.delete_list_item(id_to_delete);
       // update the budget and UI
       update_budget();
     }

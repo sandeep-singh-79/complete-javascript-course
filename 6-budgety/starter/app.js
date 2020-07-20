@@ -18,6 +18,14 @@ var budgetController = (function () {
     this.id = id;
     this.description = description;
     this.amount = amount;
+    this.percentage = -1;
+  };
+  Expense.prototype.calc_percentage = function (total_income) {
+    this.percentage =
+      total_income > 0 ? Math.round((this.amount / total_income) * 100) : -1;
+  };
+  Expense.prototype.get_percentage = function () {
+    return this.percentage;
   };
 
   var Income = function (id, description, amount) {
@@ -85,6 +93,16 @@ var budgetController = (function () {
           ? Math.round((data.totals.exp / data.totals.inc) * 100)
           : data.percentage;
     },
+    calculate_percentages: function () {
+      data.items.exp.forEach((element) => {
+        element.calc_percentage(data.totals.inc);
+      });
+    },
+    get_percentages: function () {
+      return data.items.exp.map((element) => {
+        return element.get_percentage();
+      });
+    },
     get_budget: function () {
       return {
         budget: data.budget,
@@ -112,6 +130,7 @@ var uiController = (function () {
     budget_exp_percentage: ".budget__expenses--percentage",
     budget_total: ".budget__value",
     container: ".container.clearfix",
+    percentage_fields: ".item__percentage",
   };
   return {
     // first method
@@ -173,6 +192,14 @@ var uiController = (function () {
       document.querySelector(DOM_elements.budget_exp_percentage).textContent =
         budget_data.percentage > 0 ? budget_data.percentage + "%" : "--";
     },
+    display_percentages: function (percentages) {
+      document
+        .querySelectorAll(DOM_elements.percentage_fields)
+        .forEach(function (element, index) {
+          element.textContent =
+            percentages[index] > 0 ? `${percentages[index]}%` : "--";
+        });
+    },
   };
 })();
 
@@ -219,10 +246,9 @@ var app_controller = (function (bdgtCtrlr, uiCtrlr) {
         input.description,
         input.amount
       );
-      // Add the value to the UI
       uiCtrlr.add_list_item(input.type, new_item);
-
       update_budget();
+      update_percentages();
     }
   };
   var delete_item = function (event) {
@@ -230,15 +256,23 @@ var app_controller = (function (bdgtCtrlr, uiCtrlr) {
     // As the whole div needs to be deleted instead of the delete button. For this we need to capture the div parent
     id_to_delete = event.target.parentNode.parentNode.parentNode.parentNode.id;
     if (id_to_delete) {
-      // first split the id to type and id
-      id_parts = id_to_delete.split("-");
+      id_parts = id_to_delete.split("-"); // first split the id to type and id
       // delete the item from DS
       bdgtCtrlr.delete_item(id_parts[0], parseInt(id_parts[1]));
       // delete the item from UI
       uiCtrlr.delete_list_item(id_to_delete);
       // update the budget and UI
       update_budget();
+      update_percentages();
     }
+  };
+  var update_percentages = function () {
+    // calculate percentages
+    bdgtCtrlr.calculate_percentages();
+    // read percentage from budget controller
+    var percentages = bdgtCtrlr.get_percentages();
+    // update UI with new percentages
+    uiCtrlr.display_percentages(percentages);
   };
   // only way to access the variables/functions defined inside an IIFE
   return {

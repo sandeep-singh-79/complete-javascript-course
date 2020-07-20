@@ -35,6 +35,17 @@ var budgetController = (function () {
       exp: 0,
       inc: 0,
     },
+    budget: 0,
+    percentage: -1,
+  };
+
+  var calculate_total = function (type) {
+    sum = 0;
+    data.items[type].forEach((element) => {
+      sum += element.amount;
+    });
+    data.totals[type] = sum;
+    return data.totals[type];
   };
 
   return {
@@ -51,12 +62,24 @@ var budgetController = (function () {
       data.items[type].push(new_item);
       return new_item;
     },
-    add_to_total: function (type, new_item) {
-      data.totals[type] += new_item.amount;
-      return data.totals[type];
-    },
     calculate_budget: function () {
-      return data.totals.inc - data.totals.exp;
+      calculate_total("exp");
+      calculate_total("inc");
+      data.budget = data.totals.inc - data.totals.exp;
+      // calculate percentage only if the income is greater than 0
+      // else return -1
+      data.percentage =
+        data.totals.inc > 0
+          ? Math.round((data.totals.exp / data.totals.inc) * 100)
+          : data.percentage;
+    },
+    get_budget: function () {
+      return {
+        budget: data.budget,
+        total_income: data.totals.inc,
+        total_expenses: data.totals.exp,
+        percentage: data.percentage,
+      };
     },
   };
 })();
@@ -138,8 +161,11 @@ var app_controller = (function (bdgtCtrlr, uiCtrlr) {
 
   var update_budget = function () {
     // calculate the budget
+    bdgtCtrlr.calculate_budget();
     // return the budget
+    var budget_data = bdgtCtrlr.get_budget();
     // display the budget on the UI
+    console.log(budget_data);
   };
 
   var ctrl_add_item = function () {
@@ -157,7 +183,7 @@ var app_controller = (function (bdgtCtrlr, uiCtrlr) {
       // Add the value to the UI
       uiCtrlr.add_list_item(input.type, new_item);
 
-      this.update_budget();
+      update_budget();
     }
   };
   // only way to access the variables/functions defined inside an IIFE

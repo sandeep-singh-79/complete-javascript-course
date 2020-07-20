@@ -131,6 +131,7 @@ var uiController = (function () {
     budget_total: ".budget__value",
     container: ".container.clearfix",
     percentage_fields: ".item__percentage",
+    budget_month: ".budget__title--month",
   };
   var format_amount = function (type, amount) {
     var amount_split, int, decimal;
@@ -225,6 +226,36 @@ var uiController = (function () {
             percentages[index] > 0 ? `${percentages[index]}%` : "--";
         });
     },
+    display_month: function () {
+      var now, months, month, year;
+      now = new Date();
+      year = now.getFullYear();
+      months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      month = months[now.getMonth()];
+
+      document.querySelector(
+        DOM_elements.budget_month
+      ).textContent = `${month} ${year}`;
+    },
+    change_type: function () {
+      document.querySelectorAll(`${DOM_elements.input_type}, ${DOM_elements.input_desc}, ${DOM_elements.input_value}`).forEach(function (element) { 
+        element.classList.toggle('red-focus');
+      });
+      document.querySelector(DOM_elements.add_to_budget).classList.toggle('red');
+    }
   };
 })();
 
@@ -248,6 +279,10 @@ var app_controller = (function (bdgtCtrlr, uiCtrlr) {
     document
       .querySelector(DOM_elements.container)
       .addEventListener("click", delete_item);
+
+    document
+      .querySelector(DOM_elements.input_type)
+      .addEventListener("change", uiCtrlr.change_type);
   };
 
   var update_budget = function () {
@@ -303,6 +338,7 @@ var app_controller = (function (bdgtCtrlr, uiCtrlr) {
   return {
     // expose the eventlisteners to initialize the whole thing
     init: function () {
+      uiCtrlr.display_month();
       uiCtrlr.display_budget({
         budget: 0,
         total_income: 0,

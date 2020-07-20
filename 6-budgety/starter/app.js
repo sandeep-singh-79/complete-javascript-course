@@ -132,6 +132,18 @@ var uiController = (function () {
     container: ".container.clearfix",
     percentage_fields: ".item__percentage",
   };
+  var format_amount = function (type, amount) {
+    var amount_split, int, decimal;
+    amount = Math.abs(amount);
+    amount = amount.toFixed(2);
+
+    amount_split = amount.split(".");
+    int = amount_split[0];
+    if (int.length > 3)
+      int = `${int.substr(0, int.length - 3)},${int.substr(int.length - 3, 3)}`;
+    decimal = amount_split[1];
+    return (type === "exp" ? "-" : "+") + " " + int + "." + decimal;
+  };
   return {
     // first method
     get_input_value: function () {
@@ -151,10 +163,16 @@ var uiController = (function () {
       var html, ele;
 
       if (type === "inc") {
-        html = `<div class="item clearfix" id="inc-${item.id}"> <div class="item__description">${item.description}</div> <div class="right clearfix"> <div class="item__value">${item.amount}</div> <div class="item__delete"> <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button> </div> </div> </div>`;
+        html =
+          `<div class="item clearfix" id="inc-${item.id}"> <div class="item__description">${item.description}</div> <div class="right clearfix"> <div class="item__value">` +
+          format_amount("inc", item.amount) +
+          `</div> <div class="item__delete"> <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button> </div> </div> </div>`;
         ele = DOM_elements.income_container;
       } else if (type === "exp") {
-        html = `<div class="item clearfix" id="exp-${item.id}"> <div class="item__description">${item.description}</div> <div class="right clearfix"> <div class="item__value">${item.amount}</div> <div class="item__percentage">21%</div> <div class="item__delete"> <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button> </div> </div> </div>`;
+        html =
+          `<div class="item clearfix" id="exp-${item.id}"> <div class="item__description">${item.description}</div> <div class="right clearfix"> <div class="item__value">` +
+          format_amount("exp", item.amount) +
+          `</div> <div class="item__percentage">21%</div> <div class="item__delete"> <button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button> </div> </div> </div>`;
         ele = DOM_elements.expense_container;
       }
 
@@ -167,8 +185,9 @@ var uiController = (function () {
       element.parentNode.removeChild(element);
     },
     clear_fields: function () {
-      var to_clear = document.querySelectorAll(
-        DOM_elements.input_desc + "," + DOM_elements.input_value
+      var to_clear, to_clear_fields;
+      to_clear = document.querySelectorAll(
+        `${DOM_elements.input_desc},${DOM_elements.input_value}`
       );
       // querySelecterAll returns a list. This needs to be converted to an Array
       // we use Array slice method. We use call method and pass the list reference
@@ -182,12 +201,18 @@ var uiController = (function () {
       to_clear_fields[0].focus();
     },
     display_budget: function (budget_data) {
-      document.querySelector(DOM_elements.budget_inc_value).textContent =
-        "+" + budget_data.total_income;
-      document.querySelector(DOM_elements.budget_exp_value).textContent =
-        "-" + budget_data.total_expenses;
-      document.querySelector(DOM_elements.budget_total).textContent =
-        budget_data.budget;
+      document.querySelector(
+        DOM_elements.budget_inc_value
+      ).textContent = format_amount("inc", budget_data.total_income);
+      document.querySelector(
+        DOM_elements.budget_exp_value
+      ).textContent = format_amount("exp", budget_data.total_expenses);
+      document.querySelector(
+        DOM_elements.budget_total
+      ).textContent = format_amount(
+        budget_data.budget > 0 ? "inc" : "exp",
+        budget_data.budget
+      );
 
       document.querySelector(DOM_elements.budget_exp_percentage).textContent =
         budget_data.percentage > 0 ? budget_data.percentage + "%" : "--";

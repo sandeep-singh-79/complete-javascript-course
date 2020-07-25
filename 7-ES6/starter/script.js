@@ -137,3 +137,94 @@ ages6 = years.map((element, index) => {
 });
 console.log(ages6);
  */
+
+/////////////////////////////////
+// Lecture: arrow functions 2
+
+// arrow functions share the surrouding this context
+// hence they are said to share the Lexical this context
+/* 
+// ES5
+var box5 = {
+  color: "green",
+  position: 1,
+  clickMe: function () {
+    document.querySelector(".green").addEventListener("click", function () {
+      var str =
+        "This is box number " + this.position + "and it is " + this.color;
+      alert(str);
+    });
+  },
+  click_me: function () {
+    var self = this; // this is a hack to get around the this context pointing to global context
+    document.querySelector(".green").addEventListener("click", function () {
+      var str =
+        "This is box number " + self.position + "and it is " + self.color;
+      alert(str);
+    });
+  },
+};
+box5.clickMe();
+box5.click_me();
+// here the this keyword is pointing to the global context/object - window in this instance.
+// only in a method does the this keyword define to the object calling the method.
+
+// ES6
+const box6 = {
+  color: "green",
+  position: 1,
+  clickMe: function () {
+    document.querySelector(".green").addEventListener("click", () => {
+      const str =
+        "This is box number " + this.position + "and it is " + this.color;
+      alert(str);
+    });
+  },
+};
+box6.clickMe();
+
+// this one will not work as the this context would be limited to with in the first
+// arrow function and not available in the second arrow function
+const box66 = {
+  color: "green",
+  position: 1,
+  clickMe: () => {
+    document.querySelector(".green").addEventListener("click", () => {
+      const str =
+        "This is box number " + this.position + "and it is " + this.color;
+      alert(str);
+    });
+  },
+};
+box66.clickMe();
+ */
+
+function Person(name) {
+  this.name = name;
+}
+
+// this keyword does not point to the object but to the global object inside the second anonymous function
+// the workaround is to use bind, call or apply methods. while using the bill, call or apply methods ensure that you pass the appropriate 'this' context - 'this' in our case.
+Person.prototype.myFriends5 = function (friends) {
+  // here 'this' points to the object calling myFriends4 method
+  var arr = friends.map(
+    function (el) {
+      return this.name + " is friends with " + el;
+    }.bind(this)
+  );
+  // binding 'this' in this manner will make the Person object available inside the map anonymous function
+  console.log(arr);
+};
+
+var friends = ["Bob", "Jane", "Mark"];
+new Person("John").myFriends5(friends);
+
+// ES6
+Person.prototype.myFriends6 = function (friends) {
+  // here 'this' points to the object calling myFriends4 method
+  var arr = friends.map(el => `${this.name} is friends with ${el}`);
+  // binding 'this' in this manner will make the Person object available inside the map anonymous function
+  console.log(arr);
+};
+
+new Person("Mike").myFriends6(friends);

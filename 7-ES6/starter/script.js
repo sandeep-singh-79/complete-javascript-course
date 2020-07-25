@@ -109,3 +109,31 @@ console.log(n.endsWith('th')); // new ES6 String method
 console.log(n.includes(' ')); // if a string contains some particular char or combination. ES 6
 console.log(first_name.repeat(3)); // it repeats the string the method is called on.
  */
+
+/////////////////////////////////
+// Lecture: arrow functions
+/* 
+const years = [1990, 1965, 1982, 1937]
+
+// ES5
+var ages5 = years.map(function (curr_element, curr_index, array) {
+    return new Date().getFullYear() - curr_element;
+});
+console.log(ages5)
+
+// ES6
+let ages6 = years.map(element => new Date().getFullYear() - element);
+console.log(ages6);
+
+ages6 = years.map((element, index) => `Age element ${index + 1}: ${new Date().getFullYear() - element}`
+);
+console.log(ages6);
+
+// with multiple statements surrounded by curly braces, an explicit return statement is required.
+ages6 = years.map((element, index) => {
+    const current_year = new Date().getFullYear();
+    const age = current_year - element;
+    return `Age element ${index + 1}: ${age}`
+});
+console.log(ages6);
+ */

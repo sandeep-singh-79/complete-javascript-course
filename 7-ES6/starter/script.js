@@ -76,3 +76,36 @@ console.log(c);
 
 //console.log(c);
 */
+
+/////////////////////////////////
+// Lecture: Strings
+/* 
+let first_name = "john";
+let last_name = "Smith";
+const birth_year = 1990;
+function calc_age(year) {
+  return new Date().getFullYear() - year;
+}
+
+// ES5
+console.log(
+  "This is " +
+    first_name +
+    " " +
+    last_name +
+    ". He was born in " +
+    birth_year +
+    ". Today he is " +
+    calc_age(birth_year) +
+    " years old."
+);
+
+// ES6
+console.log(`This is ${first_name} ${last_name}. He was born in ${birth_year}. Today he is ${calc_age(birth_year)} years old.`)
+
+const n = `${first_name} ${last_name}`
+console.log(n.startsWith('J')); // new ES6 String method. is case sensitive
+console.log(n.endsWith('th')); // new ES6 String method
+console.log(n.includes(' ')); // if a string contains some particular char or combination. ES 6
+console.log(first_name.repeat(3)); // it repeats the string the method is called on.
+ */

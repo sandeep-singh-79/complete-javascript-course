@@ -52,3 +52,27 @@ for (let i = 0; i < 5; ++i) {
 console.log(i);
 // as 'let' variables are block scoped the value of i is limited within the for loop. 
 */
+
+/////////////////////////////////
+// Lecture: Blocks and IIFE
+
+// In ES6 we can define a block as below:
+/*
+// ES6
+{
+    const a = 1;
+    let b = 2;
+    var c = 3;
+}
+
+//console.log(a + b);
+console.log(c);
+
+
+// ES5
+(function() {
+    var c = 3;
+})();
+
+//console.log(c);
+*/

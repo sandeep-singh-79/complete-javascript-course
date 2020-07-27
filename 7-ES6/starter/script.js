@@ -198,7 +198,7 @@ const box66 = {
 };
 box66.clickMe();
  */
-
+/* 
 function Person(name) {
   this.name = name;
 }
@@ -228,3 +228,38 @@ Person.prototype.myFriends6 = function (friends) {
 };
 
 new Person("Mike").myFriends6(friends);
+ */
+
+/////////////////////////////////
+// Lecture: Destructuring
+/* 
+// it allows us to to multiple assingment in case we are initializing from a data structure.
+// we are effectively destructuring the data from a data structure in to individual variables.
+// this provides for a convenient way to initialize multiple variables from an object or DS
+// ES5
+var john = ["John", 25];
+// var name = john[0]
+// var age = john[1]
+
+// ES6
+const [name, age] = ["John", 25];
+console.log(`${name} is ${age} years old.`);
+
+const obj = {
+  first_name: "John",
+  last_name: "Smith",
+};
+const { first_name, last_name } = obj;
+const { first_name: fname, last_name: lname } = obj;
+console.log(`${first_name} ${last_name}`);
+console.log(`${fname} ${lname}`);
+
+function calc_retirement_age(year) {
+  const age = new Date().getFullYear() - year;
+
+  return [age, 65 - age];
+}
+
+const [age2, retirement] = calc_retirement_age(2000);
+console.log(age2, retirement);
+ */

@@ -262,4 +262,47 @@ function calc_retirement_age(year) {
 
 const [age2, retirement] = calc_retirement_age(2000);
 console.log(age2, retirement);
- */
+*/
+
+/////////////////////////////////
+// Lecture: Arrays in ES6
+/* 
+const boxes = document.querySelectorAll(".box");
+
+// 5ES
+var boxesArr = Array.prototype.slice.call(boxes);
+// boxesArr.array.forEach(function (curr) {
+//   curr.style.backgroundColor = 'dodgerblue'
+// });
+for (var i = 0; i < boxesArr.length; i++) {
+  if (boxesArr[i].className === "box blue") continue;
+  boxesArr[i].textContent = "I changed to blue";
+}
+
+// ES6
+const boxesArr6 = Array.from(boxes);
+// boxesArr6
+Array.from(boxes).forEach(
+  (curr) => (curr.style.backgroundColor = "dodgerblue")
+);
+
+for (const box of boxesArr6) {
+  if (box.className.includes("blue")) continue;
+  box.textContent = "I changed to blue.";
+}
+
+// ES5
+var ages5 = [12, 17, 8, 21, 14, 11];
+var full = ages.map(function (curr) {
+  return curr >= 18;
+});
+
+console.log(full.indexOf(true));
+console.log(ages[full.indexOf(true)]);
+
+// ES6
+// findIndex(callback) returns the index of the array that meets the criteria
+ages.findIndex((curr) => curr >= 18);
+// find(callback) returns the array element that meets the criteria
+ages.find((curr) => curr >= 18);
+*/

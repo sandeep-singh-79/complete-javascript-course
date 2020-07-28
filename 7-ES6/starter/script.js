@@ -338,4 +338,56 @@ const h = document.querySelector("h1");
 const boxes = document.querySelectorAll(".box");
 const all = [h, ...boxes];
 Array.from(all).forEach((curr) => (curr.style.color = "purple"));
+*/
+
+/////////////////////////////////
+// Lecture: Rest Parameters
+/* 
+// // the rest parameters allow for us to pass an indeterminate number of params to a function
+// // The notation is the same as the Spread Operator
+
+// // ES5
+// // we do not define any params. We use arguments keyword
+// // arguments is an array like structure. It needs to be converted to array
+// function isFullAge5() {
+//   var argsArr = Array.prototype.slice.call(arguments);
+//   argsArr.forEach(function (curr) {
+//     console.log(new Date().getFullYear() - curr >= 18);
+//   });
+// }
+
+// // isFullAge5(1990, 1999, 1965);
+// // isFullAge5(1990, 1999, 1965, 2000);
+
+// // ES6
+// // The Rest operator transforms the arguments being passed to the function
+// // in to an array. Now we can easily operate on the array
+// function isFullAge6(...years) {
+//   years.forEach((curr) => console.log(new Date().getFullYear() - curr >= 18));
+// }
+
+// we want to pass the limit when a person comes of age
+// here limit will be part of the arguments. so any operation performed on arguments
+// will take limit in to consideration.
+function isFullAge5(limit) {
+  // here we need to pass another argument to the call method
+  // that will tell the call method to ignore the first argument
+  var argsArr = Array.prototype.slice.call(arguments, 1);
+  argsArr.forEach(function (curr) {
+    console.log(new Date().getFullYear() - curr >= limit);
+  });
+}
+
+isFullAge5(21, 1990, 1999, 1965);
+// isFullAge5(1990, 1999, 1965, 2000);
+
+// ES6
+// The Rest operator transforms the arguments being passed to the function
+// in to an array. Now we can easily operate on the array
+function isFullAge6(limit, ...years) {
+  years.forEach((curr) =>
+    console.log(new Date().getFullYear() - curr >= limit)
+  );
+}
+isFullAge6(18, 1990, 1999, 1965, 2016, 1987);
  */

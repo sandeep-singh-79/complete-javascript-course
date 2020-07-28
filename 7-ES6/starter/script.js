@@ -306,3 +306,36 @@ ages.findIndex((curr) => curr >= 18);
 // find(callback) returns the array element that meets the criteria
 ages.find((curr) => curr >= 18);
 */
+
+/////////////////////////////////
+// Lecture: The Spread Operator
+/* 
+// convenient way to expand elements of an array
+function addFourAges(a, b, c, d) {
+  return a + b + c + d;
+}
+
+var sum1 = addFourAges(18, 30, 12, 21);
+console.log(sum1);
+
+// ES5
+ages = [18, 30, 12, 21];
+// apply will take the elements of the array and pass them in to the
+// method addFourAges. The function receives individual elements instead of the array
+var sum2 = addFourAges.apply(null, ages);
+
+// ES6
+// the spread operator spreads out the elements of the array.
+const sum3 = addFourAges(...ages);
+
+const familySmith = ["John", "jane", "Mark"];
+const familyMiller = ["Mary", "Bob", "Ann"];
+
+const bigFamily = [...familySmith, ...familyMiller];
+const bigFamily1 = [...familySmith, "Lily", ...familyMiller];
+
+const h = document.querySelector("h1");
+const boxes = document.querySelectorAll(".box");
+const all = [h, ...boxes];
+Array.from(all).forEach((curr) => (curr.style.color = "purple"));
+ */

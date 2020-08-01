@@ -426,3 +426,49 @@ function SmithPerson(
 var john = new SmithPerson("John", 1990);
 var emily = new SmithPerson("Emily", 1983, "Diaz", "Spanish");
 */
+
+/////////////////////////////////
+// Lecture: Maps
+
+/////////////////////////////////
+// Lecture: Classes
+
+// class definitions are not hoisted. A class needs to be defined before we can create objects of it
+// Also, properties cannot be added to a class as it is not recommended.
+/* 
+// ES5
+var Person5 = function (name, birthYear, job) {
+  this.name = name;
+  this.birthYear = birthYear;
+  this.job = job;
+};
+
+Person5.prototype.calculateAge = function () {
+  var age = new Date().getFullYear() - this.birthYear;
+  console.log(age);
+};
+
+var john5 = new Person5("John", 1998, "teacher");
+
+// ES6
+class Person6 {
+  constructor(name, birthYear, job) {
+    this.name = name;
+    this.birthYear = birthYear;
+    this.job = job;
+  }
+
+  calculateAge() {
+    var age = new Date().getFullYear() - this.birthYear;
+    console.log(age);
+  }
+
+  static greeting() {
+    console.log("Hey There!");
+  }
+}
+
+const john6 = new Person6("John", 1998, "teacher");
+
+Person6.greeting();
+*/

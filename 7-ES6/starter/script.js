@@ -516,3 +516,72 @@ const john6 = new Person6("John", 1998, "teacher");
 
 Person6.greeting();
 */
+
+/////////////////////////////////
+// Lecture: Classes with Subclasses
+/* 
+// ES5
+var Person5 = function (name, birthYear, job) {
+  this.name = name;
+  this.birthYear = birthYear;
+  this.job = job;
+};
+
+Person5.prototype.calculateAge = function () {
+  var age = new Date().getFullYear() - this.birthYear;
+  console.log(age);
+};
+
+var Athlete5 = function (name, birthYear, job, olympicGames, medals) {
+  // the 'this' points to the newly created empty Athlete object
+  Person5.call(this, name, birthYear, job);
+  this.olympicGames = olympicGames;
+  this.medals = medals;
+};
+
+// we use object.create to create an instance as it allows us to set the prototype of the object.
+// as we need the prototype of Athlete object to be the Person function constructor to link the two.
+Athlete5.prototype = Object.create(Person5.prototype);
+// any new method added to the prototype of the Athlete5 class has to be added post
+// setting the prototype to Person5 prototype.
+Athlete5.prototype.wonMedal = function () {
+  ++this.medals;
+  console.log(this.medals);
+};
+var johnAthlete5 = new Athlete5("John", 1998, "swimmer", 3, 10);
+// prototype inheritance kicks in here. Thus not only all objects of type Person5 have access to
+// calculateAge method but so do Athlete5 objects.
+johnAthlete5.calculateAge();
+johnAthlete5.wonMedal();
+
+// ES6
+class Person6 {
+  constructor(name, birthYear, job) {
+    this.name = name;
+    this.birthYear = birthYear;
+    this.job = job;
+  }
+
+  calculateAge() {
+    var age = new Date().getFullYear() - this.birthYear;
+    console.log(age);
+  }
+}
+
+class Athlete6 extends Person6 {
+  constructor(name, birthYear, job, olympicGames, medals) {
+    super(name, birthYear, job);
+    this.olympicGames = olympicGames;
+    this.medals = medals;
+  }
+
+  wonMedal() {
+    ++this.medals;
+    console.log(this.medals);
+  }
+}
+
+var johnAthlete6 = new Athlete6("John", 1998, "swimmer", 3, 10);
+johnAthlete6.calculateAge();
+johnAthlete6.wonMedal();
+ */

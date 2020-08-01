@@ -429,6 +429,50 @@ var emily = new SmithPerson("Emily", 1983, "Diaz", "Spanish");
 
 /////////////////////////////////
 // Lecture: Maps
+/* 
+// can use any of the primitive datatypes as well as functions and objects as keys
+const question = new Map();
+question.set(
+  "question",
+  "what is the official name of the latest major Javascript version?"
+);
+question.set(1, "ES5");
+question.set(2, "ES6");
+question.set(3, "2015");
+question.set(4, "ES7");
+question.set("correct", 3);
+question.set(true, "Correct Answer!");
+question.set(false, "Wrong Answer! Please try again!");
+
+console.log(question.get("question"));
+// console.log(question.size);
+
+if (question.has(4)) {
+  //question.delete(4); // supply the key to delete
+  console.log("Answer 4 is here");
+}
+
+//question.clear(); // deletes all the entries from the map
+
+// question.forEach((value, key) =>
+//   console.log(`This is ${key}, and it's set to ${value}`)
+// );
+
+// this does not work as the return type is an array of key value pairs
+// for (const entry of question.entries()) {
+//   console.log(`This is ${entry.key}, and it's set to ${entry.value}`);
+// }
+
+for (const [key, value] of question.entries()) {
+  if (typeof key === "number") {
+    console.log(`Answer ${key}: ${value}`);
+  }
+}
+
+const answer = parseInt(prompt("Enter the correct answer: "));
+
+console.log(question.get(answer == question.get("correct")));
+*/
 
 /////////////////////////////////
 // Lecture: Classes

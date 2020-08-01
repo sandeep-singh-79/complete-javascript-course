@@ -585,3 +585,125 @@ var johnAthlete6 = new Athlete6("John", 1998, "swimmer", 3, 10);
 johnAthlete6.calculateAge();
 johnAthlete6.wonMedal();
  */
+
+/////////////////////////////////
+// CODING CHALLENGE
+
+/*
+
+Suppose that you're working in a small town administration, and you're in charge of two town elements:
+1. Parks
+2. Streets
+
+It's a very small town, so right now there are only 3 parks and 4 streets. All parks and streets have a name and a build year.
+
+At an end-of-year meeting, your boss wants a final report with the following:
+1. Tree density of each park in the town (forumla: number of trees/park area)
+2. Average age of each town's park (forumla: sum of all ages/number of parks)
+3. The name of the park that has more than 1000 trees
+4. Total and average length of the town's streets
+5. Size classification of all streets: tiny/small/normal/big/huge. If the size is unknown, the default is normal
+
+All the report data should be printed to the console.
+
+HINT: Use some of the ES6 features: classes, subclasses, template strings, default parameters, maps, arrow functions, destructuring, etc.
+
+*/
+
+class Feature {
+  constructor(name, build_year) {
+    this.name = name;
+    this.build_year = build_year;
+  }
+}
+
+class Park extends Feature {
+  constructor(name, build_year, area, tree_count) {
+    super(name, build_year);
+    this.tree_count = tree_count;
+    this.area = area;
+  }
+
+  calculate_density() {
+    const tree_density = this.tree_count / this.area;
+    console.log(
+      `${this.name} has a tree density of ${tree_density} trees per square km.`
+    );
+  }
+}
+
+class Street extends Feature {
+  constructor(name, build_year, length, size = 3) {
+    super(name, build_year);
+    this.length = length;
+    this.size = size;
+  }
+
+  classify_street() {
+    const street_type = new Map();
+    street_type.set(1, "Tiny");
+    street_type.set(2, "Small");
+    street_type.set(3, "Normal");
+    street_type.set(4, "Big");
+    street_type.set(5, "Huge");
+    console.log(
+      `${this.name}, built in ${this.build_year}, is a ${street_type.get(
+        this.size
+      )} street.`
+    );
+  }
+}
+
+const allParks = [
+  new Park("Green Park", 1987, 0.2, 215),
+  new Park("National Park", 1894, 2.9, 3541),
+  new Park("Oak Park", 1953, 0.4, 949),
+];
+
+const allStreets = [
+  new Street("Ocean Avenue", 1999, 1.1, 4),
+  new Street("Evergreen Street", 2008, 2.7, 2),
+  new Street("4th Street", 2015, 0.8),
+  new Street("Sunset Boulevard", 1982, 2.5, 5),
+];
+
+function park_report(parks) {
+  console.log("-----PARKS REPORT-----");
+
+  parks.forEach((park) => {
+    park.calculate_density();
+  });
+
+  let [size, average_park_age] = calc_avg(
+    parks.map((park) => new Date().getFullYear() - park.build_year)
+  );
+  console.log(`Average of a park is ${average_park_age}`);
+
+  const index = parks
+    .map((park) => park.tree_count)
+    .findIndex((tree_count) => tree_count >= 1000);
+  console.log(`${parks[index].name} contains more than 1000 trees.`);
+}
+
+function calc_avg(arrProperty) {
+  let total = 0;
+  arrProperty.forEach((property) => {
+    total += property;
+  });
+
+  return [total, total / arrProperty.length];
+}
+
+function street_report(streets) {
+  console.log("-----STREETS REPORT-----");
+
+  let [length, avg_length] = calc_avg(streets.map((street) => street.length));
+  console.log(
+    `Our ${streets.length} streets have a total length of ${length} km, with an average of ${avg_length} km.`
+  );
+
+  streets.forEach((street) => street.classify_street());
+}
+
+park_report(allParks);
+street_report(allStreets);

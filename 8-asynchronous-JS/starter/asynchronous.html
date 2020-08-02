@@ -21,7 +21,54 @@
         console.log("The end");
       };
 
-      first(); */
+      first(); 
+      // HOW THE ASYNC WORKS IN JAVASCRIPT:
+      // a new execution context is created for method first. This is followed by the
+      // execution context for the console statement. When this returns, a new
+      // context is created for the setTimeout function. This creates a context
+      // in the web API stack which keeps on running till the end of the timer.
+      // In the meanwhile, the setTimeout context returns and is removed from the
+      // call stack. Next, a new context is created for the next console statement
+      // It is removed once it completes execution.
+      // In the meanwhile, the timer runs out and the callback is added to the MQ
+      // This is where the event loop comes into the picture. The event loop monitors
+      // both the MQ and the call stack. The event loop moves the first item in the MQ
+      // to the call stack as soon as the call stack becomes empty.
+      // A new execution context is created for the callback and, the callback executed.
+      // This will continue till all items in the MQ have been moved to the call stack.
+      */
+
+      // callback hell - due to multiple nested callbacks.
+      function getRecipe() {
+        setTimeout(() => {
+          const recipeID = [523, 863, 432, 574];
+          console.log(recipeID);
+          setTimeout(
+            (id) => {
+              const recipe = {
+                title: "Fresh tomato pasta",
+                publisher: "Jonas",
+              };
+              console.log(`${id}: ${recipe.title}`);
+              setTimeout(
+                (publisher) => {
+                  const recipe2 = {
+                    title: "Italian Pizza",
+                    publisher: "Jonas",
+                  };
+                  console.log(recipe2);
+                },
+                1500,
+                recipe.publisher
+              );
+            },
+            1500,
+            recipeID[2]
+          );
+        }, 1500);
+      }
+
+      getRecipe();
     </script>
   </body>
 </html>

@@ -21,7 +21,7 @@
         console.log("The end");
       };
 
-      first(); 
+      first();
       // HOW THE ASYNC WORKS IN JAVASCRIPT:
       // a new execution context is created for method first. This is followed by the
       // execution context for the console statement. When this returns, a new
@@ -39,7 +39,7 @@
       */
 
       // callback hell - due to multiple nested callbacks.
-      function getRecipe() {
+      /* function getRecipe() {
         setTimeout(() => {
           const recipeID = [523, 863, 432, 574];
           console.log(recipeID);
@@ -68,7 +68,67 @@
         }, 1500);
       }
 
-      getRecipe();
+      getRecipe(); */
+
+      // Promises.
+      // It takes an executor function. The executor function takes 2 params
+      // resolve and reject functions
+      /* const getIDs = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([523, 863, 432, 574]); // call the resolve callback in case of successful completion
+          //reject([523, 863, 432, 574]); // this will result in the catch block of the promise execution getting called
+        }, 1500);
+      });
+      const getRecipe = (recID) => {
+        return new Promise((resolve, reject) => {
+          setTimeout(
+            (id) => {
+              const recipe = {
+                title: "Fresh tomato pasta",
+                publisher: "Jonas",
+              };
+              resolve(`${id}: ${recipe.title}`);
+            },
+            1500,
+            recID
+          );
+        });
+      };
+      const getRelated = (publisher) => {
+        return new Promise((resolve, reject) => {
+          setTimeout(
+            (pub) => {
+              const recipe2 = {
+                title: "Italian Pizza",
+                publisher: "Jonas",
+              };
+              resolve(`${pub}: ${recipe2.title}`);
+            },
+            1500,
+            publisher
+          );
+        });
+      };
+      // all promises get 2 methods - then (for resolved) and catch (for rejected)
+      getIDs
+        .then((IDs) => {
+          console.log(IDs);
+          return getRecipe(IDs[2]);
+          //getRecipe[2]. then(); // still getting into callback hell
+        })
+        // we can chain the then blocks to escape the callback hell.
+        .then((recipe) => {
+          console.log(recipe);
+          return getRelated(recipe.publisher);
+        })
+        .then((recipe) => {
+          console.log(recipe);
+        })
+        .catch((error) => {
+          // catch will never be called
+          console.log(error);
+        }); // then method takes a callback with the result of successful promise
+        */
     </script>
   </body>
 </html>

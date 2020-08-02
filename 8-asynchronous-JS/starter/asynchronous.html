@@ -73,7 +73,7 @@
       // Promises.
       // It takes an executor function. The executor function takes 2 params
       // resolve and reject functions
-      /* const getIDs = new Promise((resolve, reject) => {
+      const getIDs = new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve([523, 863, 432, 574]); // call the resolve callback in case of successful completion
           //reject([523, 863, 432, 574]); // this will result in the catch block of the promise execution getting called
@@ -110,6 +110,7 @@
         });
       };
       // all promises get 2 methods - then (for resolved) and catch (for rejected)
+      /*
       getIDs
         .then((IDs) => {
           console.log(IDs);
@@ -129,6 +130,29 @@
           console.log(error);
         }); // then method takes a callback with the result of successful promise
         */
+      // this keeps running in the background. It returns a promise
+      // Inside the function we can have 1 or more await functions
+      // await cannot be used outside an async function
+      async function getRecipesAW() {
+        // this stops the getIDs method from executing till the promise is resolved.
+        // Once is resolved, the resultant is assigned to the IDs variable. As below:
+        const IDs = await getIDs;
+        console.log(IDs);
+        const recipe = await getRecipe(IDs[2]);
+        console.log(recipe);
+        const related = await getRelated(recipe.publisher);
+        console.log(related);
+
+        return recipe;
+      }
+
+      // the below does not work as the return call is executed while the async method is running in the background.
+      /* const rec = getRecipesAW();
+      console.log(rec); */
+      // to resolve the issue we leverage the promise then block to handle the promise returned.
+      getRecipesAW().then((result) => {
+        console.log(`${result} is the best ever!`);
+      });
     </script>
   </body>
 </html>

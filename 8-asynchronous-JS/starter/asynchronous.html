@@ -159,18 +159,43 @@
           `https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${id}`
         )
           .then((result) => {
-            console.log(result);
+            //console.log(result);
             return result.json(); // returns a Promise
           })
           .then((data) => {
             const today = data.consolidated_weather[0];
             console.log(
-              `Temperatures in ${data.title} stay between ${today_min_temp} and ${today_max_temp}.`
+              `Temperatures in ${data.title} stay between ${today.min_temp} and ${today.max_temp} today.`
             );
           })
           .catch((error) => console.log(`Error Encountered: ${error}`));
       }
       get_weather(2487956);
+
+      async function get_weather(id) {
+        try {
+          const result = await fetch(
+            `https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${id}`
+          );
+          // as result.json() returns a promise as well
+          const data = await result.json();
+          const tomorrow = data.consolidated_weather[1];
+          console.log(
+            `Temperatures in ${data.title} stay between ${tomorrow.min_temp} and ${tomorrow.max_temp} tomorrow.`
+          );
+          return data;
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      const data_sfo = get_weather(2487956);
+      // console.log(data_sfo) // this will not give any output as data_sfo is of type Promise
+      let data_london;
+      get_weather(44418).then((data) => {
+        data_london = data;
+        console.log(data_london);
+      });
     </script>
   </body>
 </html>

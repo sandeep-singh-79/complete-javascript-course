@@ -133,7 +133,7 @@
       // this keeps running in the background. It returns a promise
       // Inside the function we can have 1 or more await functions
       // await cannot be used outside an async function
-      async function getRecipesAW() {
+      /* async function getRecipesAW() {
         // this stops the getIDs method from executing till the promise is resolved.
         // Once is resolved, the resultant is assigned to the IDs variable. As below:
         const IDs = await getIDs;
@@ -147,12 +147,30 @@
       }
 
       // the below does not work as the return call is executed while the async method is running in the background.
-      /* const rec = getRecipesAW();
-      console.log(rec); */
+      // const rec = getRecipesAW();
+      // console.log(rec);
       // to resolve the issue we leverage the promise then block to handle the promise returned.
       getRecipesAW().then((result) => {
         console.log(`${result} is the best ever!`);
-      });
+      }); */
+
+      function get_weather(id) {
+        fetch(
+          `https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${id}`
+        )
+          .then((result) => {
+            console.log(result);
+            return result.json(); // returns a Promise
+          })
+          .then((data) => {
+            const today = data.consolidated_weather[0];
+            console.log(
+              `Temperatures in ${data.title} stay between ${today_min_temp} and ${today_max_temp}.`
+            );
+          })
+          .catch((error) => console.log(`Error Encountered: ${error}`));
+      }
+      get_weather(2487956);
     </script>
   </body>
 </html>
